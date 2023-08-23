@@ -1,4 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+
+import 'home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -14,6 +18,9 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    Timer(Duration(seconds: 1), () {
+      Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeScreen()));
+    });
 
   }
   @override
@@ -25,7 +32,7 @@ class _SplashScreenState extends State<SplashScreen> {
         children: [
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.all(15.0),
+              padding: const EdgeInsets.fromLTRB(10, 10, 10, 5),
               child: Center(
                 child: Image(
                   image: AssetImage('images/splash_pic.jpg'),
@@ -34,7 +41,7 @@ class _SplashScreenState extends State<SplashScreen> {
               ),
             ),
           ),
-          SizedBox(height: 10,),
+          SizedBox(height: 5,),
           Align(
             alignment: Alignment.center,
             child: Center(
@@ -46,7 +53,10 @@ class _SplashScreenState extends State<SplashScreen> {
               ),
             ),
           ),
-          SizedBox(height: 30,),
+          SizedBox(height: 50,),
+          Center(
+            child:
+          ),
         ],
       ),
     );
