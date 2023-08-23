@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import 'home_screen.dart';
 
@@ -11,7 +12,10 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMixin{
+  late final AnimationController _controller=AnimationController(
+      duration: Duration(seconds: 3),
+      vsync: this)..repeat();
 
 
   @override
@@ -55,8 +59,12 @@ class _SplashScreenState extends State<SplashScreen> {
           ),
           SizedBox(height: 50,),
           Center(
-            child:
+            child:SpinKitFadingCircle(
+              color: Colors.black,
+              controller: _controller,
+            )
           ),
+          SizedBox(height: 50,),
         ],
       ),
     );
