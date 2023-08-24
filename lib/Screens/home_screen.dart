@@ -17,6 +17,9 @@ class _HomeScreenState extends State<HomeScreen> {
   TopNewsHeadlinesClass topNewsHeadlinesClass = TopNewsHeadlinesClass();
   //late Future<TopNewsHeadlinesClass> topNewsHeadlinesClass;
   final format=DateFormat('MMMM dd, yyyy');
+
+
+
   @override
   void initState() {
     // TODO: implement initState
@@ -87,7 +90,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       return ListView.builder(
                         itemCount: snapshot!.data!.articles?.length,
                         scrollDirection: Axis.horizontal,
+
                         itemBuilder: (context, index) {
+                       DateTime dateTime=DateTime.parse(snapshot.data!.articles![index].publishedAt.toString());
                           return Padding(
                             //this padding is around card not inside of card
                             padding: const EdgeInsets.all(20.0),
@@ -153,8 +158,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       crossAxisAlignment: CrossAxisAlignment.end,
                                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                       children: [
-                                                        //Text(format.format(dateTime)),
-                                                        Text(snapshot.data!.articles![index].source!.name.toString()),
+                                                        Text(format.format(dateTime)),
+                                                        Text(snapshot.data!.articles![index].source!.name.toString()
+                                                        ),
+
                                                       ],
                                                     ),
                                                   ],
