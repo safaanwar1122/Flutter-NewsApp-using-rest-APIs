@@ -16,9 +16,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   TopNewsHeadlinesClass topNewsHeadlinesClass = TopNewsHeadlinesClass();
   //late Future<TopNewsHeadlinesClass> topNewsHeadlinesClass;
-  final format=DateFormat('MMMM dd, yyyy');
-
-
+  final format = DateFormat('MMMM dd, yyyy');
 
   @override
   void initState() {
@@ -82,7 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   future: topNewsHeadlinesClass.getTopNewsHeadlines(),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return SpinKitFadingCube(
+                      return const SpinKitFadingCube(
                         color: Colors.blue,
                         size: 50,
                       );
@@ -90,9 +88,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       return ListView.builder(
                         itemCount: snapshot!.data!.articles?.length,
                         scrollDirection: Axis.horizontal,
-
                         itemBuilder: (context, index) {
-                       DateTime dateTime=DateTime.parse(snapshot.data!.articles![index].publishedAt.toString());
+                          DateTime dateTime = DateTime.parse(snapshot
+                              .data!.articles![index].publishedAt
+                              .toString());
                           return Padding(
                             //this padding is around card not inside of card
                             padding: const EdgeInsets.all(20.0),
@@ -117,10 +116,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                         Positioned.fill(
                                           child: CachedNetworkImage(
                                             fit: BoxFit.cover,
-                                            imageUrl: snapshot
-                                                .data!.articles![index].urlToImage
+                                            imageUrl: snapshot.data!
+                                                .articles![index].urlToImage
                                                 .toString(),
-                                            errorWidget: (context, url, error) => Icon(
+                                            errorWidget:
+                                                (context, url, error) => const Icon(
                                               Icons.error_outline,
                                               color: Colors.red,
                                             ),
@@ -129,51 +129,77 @@ class _HomeScreenState extends State<HomeScreen> {
                                         Positioned(
                                             //bottom: 5,
                                             child: SingleChildScrollView(
-                                              child: Card(
-                                          color: Colors.white,
-                                          elevation: 5,
-                                          shape: RoundedRectangleBorder(
+                                          child: Card(
+                                            color: Colors.white,
+                                            elevation: 5,
+                                            shape: RoundedRectangleBorder(
                                               borderRadius:
                                                   BorderRadius.circular(20),
-                                          ),
-                                          margin: EdgeInsets.fromLTRB(
+                                            ),
+                                            margin: const EdgeInsets.fromLTRB(
                                                 20, 200, 20, 20),
-                                          child: Expanded(
-                                            child: Container(
+                                            child: Expanded(
+                                              child: Container(
                                                 height: 200,
-                                             // color: Colors.red,
+                                                // color: Colors.red,
                                                 width: double.infinity,
-                                                alignment: Alignment.bottomCenter,
+                                                alignment:
+                                                    Alignment.bottomCenter,
                                                 child: Padding(
-                                                  padding: const EdgeInsets.all(8.0),
-                                                  child: Column(
-                                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                                    children: [
-                                                      Text(snapshot.data!.articles![index].title.toString(),
-                                                      style: TextStyle(
-                                                        fontSize: 18,
-                                                        fontWeight: FontWeight.bold,
-                                                      ),),
-                                                      Spacer(),
-                                                      Row(
-                                                        crossAxisAlignment: CrossAxisAlignment.end,
-                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                        children: [
-                                                          Text(snapshot.data!.articles![index].source!.name.toString(),
-                                                            style: TextStyle(color: Colors.blue),
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Flexible(
+                                                    flex: 2,
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Text(
+                                                          snapshot
+                                                              .data!
+                                                              .articles![index]
+                                                              .title
+                                                              .toString(),
+                                                          style: const TextStyle(
+                                                            fontSize: 18,
+                                                            fontWeight:
+                                                                FontWeight.bold,
                                                           ),
-                                                          Text(format.format(dateTime)),
-
-
-                                                        ],
-                                                      ),
-                                                    ],
+                                                        ),
+                                                        Spacer(),
+                                                        Row(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .end,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceBetween,
+                                                          children: [
+                                                            Text(
+                                                              snapshot
+                                                                  .data!
+                                                                  .articles![
+                                                                      index]
+                                                                  .source!
+                                                                  .name
+                                                                  .toString(),
+                                                              style: const TextStyle(
+                                                                  color: Colors
+                                                                      .blue),
+                                                            ),
+                                                            Text(format.format(
+                                                                dateTime)),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
                                                   ),
                                                 ),
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                            ))
+                                        ))
                                       ],
                                     ),
                                   ),
