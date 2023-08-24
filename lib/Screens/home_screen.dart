@@ -18,8 +18,9 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-   // topNewsHeadlinesClass=getTopNewsHeadlines();
+    // topNewsHeadlinesClass=getTopNewsHeadlines();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,56 +69,63 @@ class _HomeScreenState extends State<HomeScreen> {
                     ]),
           ],
         ),
-        body: Column(
-          children: [
-            Expanded(
-              child: FutureBuilder<TopNewsHeadlines>(
-                  future:topNewsHeadlinesClass.getTopNewsHeadlines(),
-                  builder: (context, snapshot) {
-                    if (!snapshot.hasData) {
-                      return CircularProgressIndicator();
-                    } else {
-                      return ListView.builder(
-
+        body: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            children: [
+              Expanded(
+                child: FutureBuilder<TopNewsHeadlines>(
+                    future: topNewsHeadlinesClass.getTopNewsHeadlines(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState==ConnectionState.waiting) {
+                        return SpinKitFadingCube(
+                          color: Colors.blue,
+                          size: 50,
+                        );
+                      } else {
+                        return ListView.builder(
                           itemCount: snapshot!.data!.articles?.length,
                           scrollDirection: Axis.horizontal,
-                          itemBuilder: ( context, index) {
+                          itemBuilder: (context, index) {
                             return Column(
                               children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                                Padding(//this padding is around card not inside of card
+                                  padding: const EdgeInsets.all(20.0),
                                   child: Card(
-                                    color: Colors.blue,
-                                    elevation: 20,
+                                    // color: Colors.blue,
+                                    elevation: 5,
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10),
-
                                     ),
-                                    margin: EdgeInsets.only(right: 20),
+                                    margin: EdgeInsets.only(right: 5),
                                     child: Container(
-                                      padding: EdgeInsets.all(15),
+                                      padding: EdgeInsets.all(1),
                                       width: 300,
-
+                                     // height: 300,
                                       child: Column(
-                                        children:
-                                        [
-                                          Text('hi'),
+                                        children: [
+                                          //Text('hi'),
                                           ClipRRect(
-                                          borderRadius: BorderRadius.circular(10),
-                                          child: SizedBox(height: 120,
-                                          width: double.infinity,
-                                            child: Stack(
-                                              children: [
-                                                Positioned.fill(child: Image(
-                                                  image: NetworkImage(snapshot.data!.articles![index].urlToImage.toString()),
-                                                )),
-                                              ],
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            child: SizedBox(
+                                              height: 300,
+                                              width: double.infinity,
+                                              child: Stack(
+                                                children: [
+                                                  Positioned.fill(
+                                                      child: Image(
+                                                    image: NetworkImage(snapshot
+                                                        .data!
+                                                        .articles![index]
+                                                        .urlToImage
+                                                        .toString()),
+                                                  )),
+                                                ],
+                                              ),
                                             ),
                                           ),
-                                        ),
-
                                         ],
-
                                       ),
                                     ),
                                   ),
@@ -126,11 +134,12 @@ class _HomeScreenState extends State<HomeScreen> {
                               ],
                             );
                           },
-                          );
-                    }
-                  }),
-            )
-          ],
+                        );
+                      }
+                    }),
+              )
+            ],
+          ),
         ));
   }
 }
