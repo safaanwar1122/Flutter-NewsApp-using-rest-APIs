@@ -81,19 +81,52 @@ class _HomeScreenState extends State<HomeScreen> {
 
                           itemCount: snapshot!.data!.articles?.length,
                           scrollDirection: Axis.horizontal,
-                          itemBuilder: (BuildContext context, index) {
-                            return Card(
-                              color: Colors.blue,
-                              elevation: 20,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
+                          itemBuilder: ( context, index) {
+                            return Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Card(
+                                    color: Colors.blue,
+                                    elevation: 20,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10),
 
-                              ),
-                              child: Container(
-                                color: Colors.red,
-                              ),
+                                    ),
+                                    margin: EdgeInsets.only(right: 20),
+                                    child: Container(
+                                      padding: EdgeInsets.all(15),
+                                      width: 300,
+
+                                      child: Column(
+                                        children:
+                                        [
+                                          Text('hi'),
+                                          ClipRRect(
+                                          borderRadius: BorderRadius.circular(10),
+                                          child: SizedBox(height: 120,
+                                          width: double.infinity,
+                                            child: Stack(
+                                              children: [
+                                                Positioned.fill(child: Image(
+                                                  image: NetworkImage(snapshot.data!.articles![index].urlToImage.toString()),
+                                                )),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+
+                                        ],
+
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Text('ji'),
+                              ],
                             );
-                          });
+                          },
+                          );
                     }
                   }),
             )
