@@ -1,21 +1,26 @@
 import 'package:flutter/material.dart';
 
-class PacticeAPI extends StatefulWidget {
-  const PacticeAPI({Key? key}) : super(key: key);
-
-  @override
-  State<PacticeAPI> createState() => _PacticeAPIState();
-}
-
-class _PacticeAPIState extends State<PacticeAPI> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-
-        ],
-      ),
-    );
-  }
-}
+leading: Container(
+height: 150,
+width: 150,
+child: Image(
+image: NetworkImage(snapshot
+    .data!.articles![index].urlToImage
+    .toString()),
+width: MediaQuery.of(context).size.width,
+fit: BoxFit.cover,
+),
+),
+title: Text(
+'Ttile\n' +
+snapshot.data!.articles![index].title
+    .toString(),
+maxLines: 2,
+overflow: TextOverflow.ellipsis,
+),
+subtitle: Text(
+'Description\n' +snapshot.data!.articles![index].description
+    .toString(),
+maxLines: 2,
+overflow: TextOverflow.ellipsis,
+),
