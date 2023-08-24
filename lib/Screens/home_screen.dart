@@ -12,6 +12,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
   TopNewsHeadlinesClass topNewsHeadlinesClass = TopNewsHeadlinesClass();
   //late Future<TopNewsHeadlinesClass> topNewsHeadlinesClass;
   @override
@@ -23,6 +24,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final height=MediaQuery.sizeOf(context).height*1;
+    final width=MediaQuery.sizeOf(context).width*1;
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -69,77 +72,81 @@ class _HomeScreenState extends State<HomeScreen> {
                     ]),
           ],
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Column(
-            children: [
-              Expanded(
-                child: FutureBuilder<TopNewsHeadlines>(
-                    future: topNewsHeadlinesClass.getTopNewsHeadlines(),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState==ConnectionState.waiting) {
-                        return SpinKitFadingCube(
-                          color: Colors.blue,
-                          size: 50,
-                        );
-                      } else {
-                        return ListView.builder(
-                          itemCount: snapshot!.data!.articles?.length,
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) {
-                            return Column(
-                              children: [
-                                Padding(//this padding is around card not inside of card
-                                  padding: const EdgeInsets.all(20.0),
-                                  child: Card(
-                                    // color: Colors.blue,
-                                    elevation: 5,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    margin: EdgeInsets.only(right: 5),
-                                    child: Container(
-                                      padding: EdgeInsets.all(1),
-                                      width: 300,
-                                     // height: 300,
-                                      child: Column(
-                                        children: [
-                                          //Text('hi'),
-                                          ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            child: SizedBox(
-                                              height: 300,
-                                              width: double.infinity,
-                                              child: Stack(
-                                                children: [
-                                                  Positioned.fill(
-                                                      child: Image(
-                                                    image: NetworkImage(snapshot
-                                                        .data!
-                                                        .articles![index]
-                                                        .urlToImage
-                                                        .toString()),
-                                                  )),
-                                                ],
-                                              ),
+        body: ListView(
+          children: [
+            Container(
+              height: height*.55,
+              width: width,
+              child: FutureBuilder<TopNewsHeadlines>(
+                  future: topNewsHeadlinesClass.getTopNewsHeadlines(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState==ConnectionState.waiting) {
+                      return SpinKitFadingCube(
+                        color: Colors.blue,
+                        size: 50,
+                      );
+                    } else {
+                      return ListView.builder(
+                        itemCount: snapshot!.data!.articles?.length,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) {
+                          return Column(
+                            children: [
+                              Padding(//this padding is around card not inside of card
+                                padding: const EdgeInsets.all(20.0),
+                                child: Card(
+                                  // color: Colors.blue,
+                                  elevation: 5,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  margin: EdgeInsets.only(right: 5),
+                                  child: Container(
+                                    padding: EdgeInsets.all(0),
+                                    width: 300,
+                                   // height: 300,
+                                    child: Column(
+                                      children: [
+                                        //Text('hi'),
+                                        ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          child: SizedBox(
+                                            height: 170,
+                                            width: double.infinity,
+                                            child: Stack(
+                                              children: [
+                                                Positioned.fill(
+                                                    child: Image(
+                                                  image: NetworkImage(snapshot
+                                                      .data!
+                                                      .articles![index]
+                                                      .urlToImage
+                                                      .toString()),
+                                                )),
+
+                                              ],
                                             ),
                                           ),
-                                        ],
-                                      ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ),
-                                Text('ji'),
-                              ],
-                            );
-                          },
-                        );
-                      }
-                    }),
-              )
-            ],
-          ),
+                              ),
+                              //Text('ji'),
+                              const SizedBox(
+                                height: 20,
+                              ),
+
+                            ],
+                          );
+                        },
+                      );
+                    }
+                  }),
+            )
+          ],
         ));
   }
 }
