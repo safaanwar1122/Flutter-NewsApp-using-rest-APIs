@@ -13,7 +13,9 @@ class HomeScreen extends StatefulWidget {
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
-
+enum filterList{
+  bbcnews, aryNews, independent, reuters, AlJazera, cnn
+}
 class _HomeScreenState extends State<HomeScreen> {
   TopNewsHeadlinesClass topNewsHeadlinesClass = TopNewsHeadlinesClass();
   //late Future<TopNewsHeadlinesClass> topNewsHeadlinesClass;

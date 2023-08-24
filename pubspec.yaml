@@ -40,6 +40,7 @@ dependencies:
   http: ^1.1.0
   intl:
   cached_network_image: ^3.2.3
+  sliding_sheet:
 
 dev_dependencies:
   flutter_test:
