@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import '../Models/top_news_headlines.dart';
 import '../Repository/news_repository.dart';
 import 'category_screen.dart';
 
@@ -12,6 +13,13 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   TopNewsHeadlinesClass topNewsHeadlinesClass = TopNewsHeadlinesClass();
+  //late Future<TopNewsHeadlinesClass> topNewsHeadlinesClass;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+   // topNewsHeadlinesClass=getTopNewsHeadlines();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,11 +71,11 @@ class _HomeScreenState extends State<HomeScreen> {
         body: Column(
           children: [
             Expanded(
-              child: FutureBuilder(
-                  future: topNewsHeadlinesClass.getTopNewsHeadlines(),
+              child: FutureBuilder<TopNewsHeadlines>(
+                  future:topNewsHeadlinesClass.getTopNewsHeadlines(),
                   builder: (context, snapshot) {
                     if (!snapshot.hasData) {
-                      return SpinKitCircle();
+                      return CircularProgressIndicator();
                     } else {
                       return ListView.builder(
 
