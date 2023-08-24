@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:intl/intl.dart';
 import '../Models/top_news_headlines.dart';
 import '../Repository/news_repository.dart';
 import 'category_screen.dart';
@@ -15,6 +16,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   TopNewsHeadlinesClass topNewsHeadlinesClass = TopNewsHeadlinesClass();
   //late Future<TopNewsHeadlinesClass> topNewsHeadlinesClass;
+  final format=DateFormat('MMMM dd, yyyy');
   @override
   void initState() {
     // TODO: implement initState
@@ -108,14 +110,17 @@ class _HomeScreenState extends State<HomeScreen> {
                                     child: Stack(
                                       children: [
                                         Positioned.fill(
-                                            child: Image(
-                                          fit: BoxFit.cover,
-                                          image: NetworkImage(
-                                            snapshot.data!.articles![index]
-                                                .urlToImage
+                                          child: CachedNetworkImage(
+                                            fit: BoxFit.cover,
+                                            imageUrl: snapshot
+                                                .data!.articles![index].urlToImage
                                                 .toString(),
+                                            errorWidget: (context, url, error) => Icon(
+                                              Icons.error_outline,
+                                              color: Colors.red,
+                                            ),
                                           ),
-                                        )),
+                                        ),
                                         Positioned(
                                             //bottom: 5,
                                             child: SingleChildScrollView(
@@ -148,8 +153,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       crossAxisAlignment: CrossAxisAlignment.end,
                                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                       children: [
-                                                        Text(snapshot.data!.articles![index].publishedAt.toString()),
-                                                        Text('time'),
+                                                        //Text(format.format(dateTime)),
+                                                        Text(snapshot.data!.articles![index].source!.name.toString()),
                                                       ],
                                                     ),
                                                   ],
