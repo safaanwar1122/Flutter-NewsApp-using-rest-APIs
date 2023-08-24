@@ -105,7 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               margin: EdgeInsets.only(right: 5),
                               child: Container(
                                 padding: EdgeInsets.all(0),
-                                width: 300,
+                                width: 400,
                                 height: 300,
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(10),
@@ -138,35 +138,39 @@ class _HomeScreenState extends State<HomeScreen> {
                                           ),
                                           margin: EdgeInsets.fromLTRB(
                                                 20, 200, 20, 20),
-                                          child: Container(
-                                              height: 200,
-                                           // color: Colors.red,
-                                              width: double.infinity,
-                                              alignment: Alignment.bottomCenter,
-                                              child: Padding(
-                                                padding: const EdgeInsets.all(8.0),
-                                                child: Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                                  children: [
-                                                    Text(snapshot.data!.articles![index].title.toString(),
-                                                    style: TextStyle(
-                                                      fontSize: 18,
-                                                      fontWeight: FontWeight.bold,
-                                                    ),),
-                                                    Spacer(),
-                                                    Row(
-                                                      crossAxisAlignment: CrossAxisAlignment.end,
-                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                      children: [
-                                                        Text(format.format(dateTime)),
-                                                        Text(snapshot.data!.articles![index].source!.name.toString()
-                                                        ),
+                                          child: Expanded(
+                                            child: Container(
+                                                height: 200,
+                                             // color: Colors.red,
+                                                width: double.infinity,
+                                                alignment: Alignment.bottomCenter,
+                                                child: Padding(
+                                                  padding: const EdgeInsets.all(8.0),
+                                                  child: Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                                    children: [
+                                                      Text(snapshot.data!.articles![index].title.toString(),
+                                                      style: TextStyle(
+                                                        fontSize: 18,
+                                                        fontWeight: FontWeight.bold,
+                                                      ),),
+                                                      Spacer(),
+                                                      Row(
+                                                        crossAxisAlignment: CrossAxisAlignment.end,
+                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                        children: [
+                                                          Text(snapshot.data!.articles![index].source!.name.toString(),
+                                                            style: TextStyle(color: Colors.blue),
+                                                          ),
+                                                          Text(format.format(dateTime)),
 
-                                                      ],
-                                                    ),
-                                                  ],
+
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
                                                 ),
-                                              ),
+                                            ),
                                           ),
                                         ),
                                             ))
