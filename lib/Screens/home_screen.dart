@@ -70,33 +70,19 @@ class _HomeScreenState extends State<HomeScreen> {
                       return SpinKitCircle();
                     } else {
                       return ListView.builder(
-                          itemCount: snapshot.data!.articles!.length,
-                          itemBuilder: (context, index) {
-                            return ListTile(
-                              leading: Container(
-                                height: 150,
-                                width: 150,
-                                child: Image(
-                                  image: NetworkImage(snapshot
-                                      .data!.articles![index].urlToImage
-                                      .toString()),
-                                  width: MediaQuery.of(context).size.width,
-                                  fit: BoxFit.cover,
-                                ),
+
+                          itemCount: snapshot!.data!.articles?.length,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (BuildContext context, index) {
+                            return Card(
+                              color: Colors.blue,
+                              elevation: 20,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+
                               ),
-                              title: Text(
-                                'Ttile\n' +
-                                    snapshot.data!.articles![index].title
-                                        .toString(),
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                              subtitle: Text(
-                                'Description\n' +
-                                    snapshot.data!.articles![index].description
-                                        .toString(),
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
+                              child: Container(
+                                color: Colors.red,
                               ),
                             );
                           });
