@@ -117,21 +117,47 @@ class _HomeScreenState extends State<HomeScreen> {
                                           ),
                                         )),
                                         Positioned(
-                                            child: Card(
-                                              elevation: 5,
+                                            //bottom: 5,
+                                            child: SingleChildScrollView(
+                                              child: Card(
+                                          color: Colors.white,
+                                          elevation: 5,
                                           shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(20),
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
                                           ),
-                                          margin: EdgeInsets.fromLTRB(30, 100, 20, 20),
+                                          margin: EdgeInsets.fromLTRB(
+                                                20, 200, 20, 20),
                                           child: Container(
-                                            height: 200,
-                                            width: double.infinity,
-                                            color: Colors.white,
-
-                                            alignment: Alignment.bottomCenter,
+                                              height: 200,
+                                           // color: Colors.red,
+                                              width: double.infinity,
+                                              alignment: Alignment.bottomCenter,
+                                              child: Padding(
+                                                padding: const EdgeInsets.all(8.0),
+                                                child: Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                                  children: [
+                                                    Text(snapshot.data!.articles![index].title.toString(),
+                                                    style: TextStyle(
+                                                      fontSize: 18,
+                                                      fontWeight: FontWeight.bold,
+                                                    ),),
+                                                    Spacer(),
+                                                    Row(
+                                                      crossAxisAlignment: CrossAxisAlignment.end,
+                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                      children: [
+                                                        Text(snapshot.data!.articles![index].publishedAt.toString()),
+                                                        Text('time'),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
                                           ),
-
-                                        ))
+                                        ),
+                                            ))
                                       ],
                                     ),
                                   ),
