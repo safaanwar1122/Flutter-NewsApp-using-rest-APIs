@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../Models/top_news_headlines.dart';
@@ -24,8 +25,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final height=MediaQuery.sizeOf(context).height*1;
-    final width=MediaQuery.sizeOf(context).width*1;
+
+
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -72,11 +73,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     ]),
           ],
         ),
-        body: ListView(
+        body: Column(
           children: [
-            Container(
-              height: height*.55,
-              width: width,
+            Expanded(
               child: FutureBuilder<TopNewsHeadlines>(
                   future: topNewsHeadlinesClass.getTopNewsHeadlines(),
                   builder: (context, snapshot) {
@@ -90,56 +89,46 @@ class _HomeScreenState extends State<HomeScreen> {
                         itemCount: snapshot!.data!.articles?.length,
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) {
-                          return Column(
-                            children: [
-                              Padding(//this padding is around card not inside of card
-                                padding: const EdgeInsets.all(20.0),
-                                child: Card(
-                                  // color: Colors.blue,
-                                  elevation: 5,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  margin: EdgeInsets.only(right: 5),
-                                  child: Container(
-                                    padding: EdgeInsets.all(0),
-                                    width: 300,
-                                   // height: 300,
-                                    child: Column(
+                          return  Padding(//this padding is around card not inside of card
+                            padding: const EdgeInsets.all(20.0),
+                            child: Card(
+                               //color: Colors.blue,
+                              elevation: 5,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              margin: EdgeInsets.only(right: 5),
+                              child: Container(
+                                padding: EdgeInsets.all(0),
+                                width: 300,
+                                 height: 300,
+                                child: ClipRRect(
+                                  borderRadius:
+                                  BorderRadius.circular(10),
+                                  child: SizedBox(
+                                    height: 170,
+                                    width: double.infinity,
+                                    child: Stack(
                                       children: [
-                                        //Text('hi'),
-                                        ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          child: SizedBox(
-                                            height: 170,
-                                            width: double.infinity,
-                                            child: Stack(
-                                              children: [
-                                                Positioned.fill(
-                                                    child: Image(
-                                                  image: NetworkImage(snapshot
-                                                      .data!
-                                                      .articles![index]
-                                                      .urlToImage
-                                                      .toString()),
-                                                )),
+                                        Positioned.fill(
+                                            child: Image(
+                                              fit:BoxFit.cover,
+                                              image: NetworkImage(
 
-                                              ],
-                                            ),
-                                          ),
-                                        ),
+                                                snapshot
+                                                    .data!
+                                                    .articles![index]
+                                                    .urlToImage
+                                                    .toString(),
+                                              ),
+                                            )),
+
                                       ],
                                     ),
                                   ),
                                 ),
                               ),
-                              //Text('ji'),
-                              const SizedBox(
-                                height: 20,
-                              ),
-
-                            ],
+                            ),
                           );
                         },
                       );
