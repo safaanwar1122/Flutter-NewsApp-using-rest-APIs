@@ -13,7 +13,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   TopNewsHeadlinesClass topNewsHeadlinesClass = TopNewsHeadlinesClass();
   //late Future<TopNewsHeadlinesClass> topNewsHeadlinesClass;
   @override
@@ -25,8 +24,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-
-
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -79,7 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: FutureBuilder<TopNewsHeadlines>(
                   future: topNewsHeadlinesClass.getTopNewsHeadlines(),
                   builder: (context, snapshot) {
-                    if (snapshot.connectionState==ConnectionState.waiting) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
                       return SpinKitFadingCube(
                         color: Colors.blue,
                         size: 50,
@@ -89,10 +86,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         itemCount: snapshot!.data!.articles?.length,
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) {
-                          return  Padding(//this padding is around card not inside of card
+                          return Padding(
+                            //this padding is around card not inside of card
                             padding: const EdgeInsets.all(20.0),
                             child: Card(
-                               //color: Colors.blue,
+                              //color: Colors.blue,
                               elevation: 5,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
@@ -101,10 +99,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: Container(
                                 padding: EdgeInsets.all(0),
                                 width: 300,
-                                 height: 300,
+                                height: 300,
                                 child: ClipRRect(
-                                  borderRadius:
-                                  BorderRadius.circular(10),
+                                  borderRadius: BorderRadius.circular(10),
                                   child: SizedBox(
                                     height: 170,
                                     width: double.infinity,
@@ -112,17 +109,29 @@ class _HomeScreenState extends State<HomeScreen> {
                                       children: [
                                         Positioned.fill(
                                             child: Image(
-                                              fit:BoxFit.cover,
-                                              image: NetworkImage(
+                                          fit: BoxFit.cover,
+                                          image: NetworkImage(
+                                            snapshot.data!.articles![index]
+                                                .urlToImage
+                                                .toString(),
+                                          ),
+                                        )),
+                                        Positioned(
+                                            child: Card(
+                                              elevation: 5,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(20),
+                                          ),
+                                          margin: EdgeInsets.fromLTRB(30, 100, 20, 20),
+                                          child: Container(
+                                            height: 200,
+                                            width: double.infinity,
+                                            color: Colors.white,
 
-                                                snapshot
-                                                    .data!
-                                                    .articles![index]
-                                                    .urlToImage
-                                                    .toString(),
-                                              ),
-                                            )),
+                                            alignment: Alignment.bottomCenter,
+                                          ),
 
+                                        ))
                                       ],
                                     ),
                                   ),
