@@ -5,7 +5,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import '../Models/top_news_headlines.dart';
 import '../Repository/news_repository.dart';
-import '../View_Model/news_view_model.dart';
 import 'category_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -30,6 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       appBar: AppBar(
+
         leading: IconButton(
           icon: Image.asset(
             'images/category_icon.png',
@@ -38,13 +38,31 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           onPressed: () {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) =>CategoryScreen()));
+                MaterialPageRoute(builder: (context) => CategoryScreen()));
           },
         ),
         centerTitle: true,
-        title: Text(
-          'News',
-          style: GoogleFonts.poppins(fontSize: 24, fontWeight: FontWeight.w700),
+        title: Row(
+          children: [
+            Text(
+              'Flutter',
+              style: TextStyle(
+                fontFamily: 'Pacifico',
+                fontWeight: FontWeight.w600,
+                color: Colors.black,
+                fontSize: 30,
+              ),
+            ),
+            Text(
+              'News APP',
+              style: TextStyle(
+                fontFamily: 'Pacifico',
+                fontWeight: FontWeight.w600,
+                color: Colors.red,
+                fontSize: 30,
+              ),
+            ),
+          ],
         ),
         actions: [
           PopupMenuButton<filterlist>(
@@ -68,23 +86,23 @@ class _HomeScreenState extends State<HomeScreen> {
               },
               initialValue: selectedMenu,
               itemBuilder: (context) => <PopupMenuEntry<filterlist>>[
-                PopupMenuItem<filterlist>(
-                  value: filterlist.bbcnews,
-                  child: Text('BBC news'),
-                ),
-                PopupMenuItem<filterlist>(
-                  value: filterlist.aryNews,
-                  child: Text('ARY news'),
-                ),
-                PopupMenuItem<filterlist>(
-                  value: filterlist.AlJazera,
-                  child: Text('AL-Jazeera news'),
-                ),
-                PopupMenuItem<filterlist>(
-                  value: filterlist.cnn,
-                  child: Text('CNN news'),
-                ),
-              ])
+                    PopupMenuItem<filterlist>(
+                      value: filterlist.bbcnews,
+                      child: Text('BBC news'),
+                    ),
+                    PopupMenuItem<filterlist>(
+                      value: filterlist.aryNews,
+                      child: Text('ARY news'),
+                    ),
+                    PopupMenuItem<filterlist>(
+                      value: filterlist.AlJazera,
+                      child: Text('AL-Jazeera news'),
+                    ),
+                    PopupMenuItem<filterlist>(
+                      value: filterlist.cnn,
+                      child: Text('CNN news'),
+                    ),
+                  ])
         ],
       ),
       body: ListView(children: [
@@ -105,7 +123,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   return ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount: snapshot.data!.articles!.length,
-                    itemBuilder: ( context, int index) {
+                    itemBuilder: (context, int index) {
                       DateTime dateTime = DateTime.parse(snapshot
                           .data!.articles![index].publishedAt
                           .toString());
@@ -146,7 +164,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.center,
+                                        CrossAxisAlignment.center,
                                     children: [
                                       Container(
                                         width: width * 0.7,
@@ -163,7 +181,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         width: width * 0.7,
                                         child: Row(
                                           mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text(
                                               snapshot.data!.articles![index]
@@ -200,7 +218,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 }
               }),
         ),
-
       ]),
     );
   }
