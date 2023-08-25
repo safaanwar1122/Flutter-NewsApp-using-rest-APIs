@@ -2,72 +2,60 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'home_screen.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+  const SplashScreen({super.key});
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMixin{
-  late final AnimationController _controller=AnimationController(
-      duration: Duration(seconds: 3),
-      vsync: this)..repeat();
-
-
+class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    Timer(Duration(seconds: 1), () {
-      Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeScreen()));
+    Timer(Duration(seconds: 6), () {
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => HomeScreen()));
     });
-
   }
+
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.sizeOf(context).height * 1;
+
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(10, 10, 10, 5),
-              child: Center(
-                child: Image(
-                  image: AssetImage('images/splash_pic.jpg'),
-                  fit: BoxFit.cover,
-                ),
-              ),
+      body: Container(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              'images/splash_pic.jpg',
+              fit: BoxFit.cover,
+              height: height * .5,
             ),
-          ),
-          SizedBox(height: 5,),
-          Align(
-            alignment: Alignment.center,
-            child: Center(
-              child: Text(
-                'Top Headlines', textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold, fontSize: 25,
-                ),
-              ),
+            SizedBox(
+              height: height * 0.04,
             ),
-          ),
-          SizedBox(height: 50,),
-          Center(
-            child:SpinKitFadingCircle(
-              color: Colors.black,
-              controller: _controller,
+            Text(
+              'TOP HEADLINES',
+              style: GoogleFonts.anton(
+                  letterSpacing: 6, color: Colors.grey.shade700),
+            ),
+            SizedBox(
+              height: height * 0.04,
+            ),
+            SpinKitChasingDots(
+              color: Colors.blue,
+              size: 40,
             )
-          ),
-          SizedBox(height: 50,),
-        ],
+          ],
+        ),
       ),
     );
   }
 }
-
