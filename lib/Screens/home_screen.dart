@@ -14,7 +14,7 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-enum filterlist { bbcnews, aryNews, independent, reuters, AlJazera, cnn }
+enum filterlist { bbcnews, focus, cnn ,independent}
 
 class _HomeScreenState extends State<HomeScreen> {
   final format = DateFormat('MMMM dd, yyyy');
@@ -29,7 +29,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       appBar: AppBar(
-
         leading: IconButton(
           icon: Image.asset(
             'images/category_icon.png',
@@ -70,39 +69,27 @@ class _HomeScreenState extends State<HomeScreen> {
                 if (filterlist.bbcnews.name == item.name) {
                   name = 'bbc-news';
                 }
-                if (filterlist.aryNews.name == item.name) {
-                  name = 'ary-news';
+                if(filterlist.cnn==item.name){
+                  name='cnn';
                 }
-                if (filterlist.AlJazera.name == item.name) {
-                  name = 'al-jazeera-english';
+                if(filterlist.focus==item.name){
+                  name='focus';
                 }
-                if (filterlist.cnn.name == item.name) {
-                  name = 'cnn';
+                if(filterlist.independent==item.name){
+                  name='independent';
                 }
-
-                setState(() {
-                  selectedMenu = item;
-                });
               },
-              initialValue: selectedMenu,
-              itemBuilder: (context) => <PopupMenuEntry<filterlist>>[
+              icon: Icon(Icons.more_vert),
+              itemBuilder: (context) => [
                     PopupMenuItem<filterlist>(
-                      value: filterlist.bbcnews,
-                      child: Text('BBC news'),
-                    ),
+                        value: filterlist.bbcnews, child: Text('BBC-News')),
                     PopupMenuItem<filterlist>(
-                      value: filterlist.aryNews,
-                      child: Text('ARY news'),
-                    ),
+                        value: filterlist.cnn, child: Text('CNN News')),
                     PopupMenuItem<filterlist>(
-                      value: filterlist.AlJazera,
-                      child: Text('AL-Jazeera news'),
-                    ),
+                        value: filterlist.focus, child: Text('Focus News')),
                     PopupMenuItem<filterlist>(
-                      value: filterlist.cnn,
-                      child: Text('CNN news'),
-                    ),
-                  ])
+                        value: filterlist.independent, child: Text('Independent News')),
+                  ]),
         ],
       ),
       body: ListView(children: [
